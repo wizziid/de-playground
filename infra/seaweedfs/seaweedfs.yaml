@@ -1,0 +1,20 @@
+services:
+  seaweed:
+    image: chrislusf/seaweedfs:4.23
+    ports:
+      - "9333:9333"
+      - "8080:8080"
+      - "18080:18080"
+      - "8333:8333"
+    volumes: 
+      - type: bind 
+        source: $HOME/var/lib/seaweedfs/data
+        target: /data
+      - type: bind 
+        source: ./s3
+        target: /s3
+    command: 
+      - server 
+      - -dir=/data
+      - -s3 
+      - -s3.config=/s3/s3_config_private.json
